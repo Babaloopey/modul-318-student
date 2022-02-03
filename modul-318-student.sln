@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissTransport", "src\SwissTransport\SwissTransport.csproj", "{D0262178-A48F-4DE0-807B-E76B63E39421}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwissTransport", "src\SwissTransport\SwissTransport.csproj", "{D0262178-A48F-4DE0-807B-E76B63E39421}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissTransportTest", "tests\SwissTransportTest\SwissTransportTest.csproj", "{959C6E54-5B1C-40F5-938A-C57B17451421}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SwissTransportTest", "tests\SwissTransportTest\SwissTransportTest.csproj", "{959C6E54-5B1C-40F5-938A-C57B17451421}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SwissTransportGui", "src\SwissTransportGui\SwissTransportGui.csproj", "{30B6A2B3-F984-4710-BB9D-B36FC819E894}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{959C6E54-5B1C-40F5-938A-C57B17451421}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{959C6E54-5B1C-40F5-938A-C57B17451421}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{959C6E54-5B1C-40F5-938A-C57B17451421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30B6A2B3-F984-4710-BB9D-B36FC819E894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30B6A2B3-F984-4710-BB9D-B36FC819E894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30B6A2B3-F984-4710-BB9D-B36FC819E894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30B6A2B3-F984-4710-BB9D-B36FC819E894}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0AA55791-5CC8-4961-BC3B-02E1505BA2B6}
 	EndGlobalSection
 EndGlobal
