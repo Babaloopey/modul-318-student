@@ -19,7 +19,7 @@
                 throw new ArgumentNullException(nameof(query));
             }
 
-            var uri = new Uri($"{WebApiHost}locations?query={query}");
+            var uri = new Uri($"{WebApiHost}locations?query={query}&type=station");
             return this.GetObject<Stations>(uri);
         }
 
@@ -30,12 +30,15 @@
                 throw new ArgumentNullException(nameof(station));
             }
 
-            if (string.IsNullOrEmpty(id))
+            
+
+            string adress = $"{WebApiHost}stationboard?station={station}";
+            if (id != null)
             {
-                throw new ArgumentNullException(nameof(id));
+                adress += ($"&id={id}");
             }
 
-            var uri = new Uri($"{WebApiHost}stationboard?station={station}&id={id}");
+            var uri = new Uri(adress);
             return this.GetObject<StationBoardRoot>(uri);
         }
 
