@@ -7,20 +7,21 @@ namespace SwissTransportGui
     public partial class Form1 : Form
     {
         Helper helper = new Helper();
+
+        bool departureIsBeingUpdated = false;
+        bool destinationIsBeingUpdated = false;
+
+        Station SelectedDeparture = new Station();
+        Station SelectedDestination = new Station();
+
         public Form1()
         {
             InitializeComponent();
             AllocConsole();
-
-            
-            //DepartureBox.AutoCompleteMode = AutoCompleteMode.Suggest;
-            //DepartureBox.AutoCompleteSource = AutoCompleteSource.ListItems;
-
-           
-
-
-
+            DepartureBox.DisplayMember = "Name";
         }
+
+
 
         private void ConnectionBtn_Click(object sender, EventArgs e)
         {
@@ -88,12 +89,88 @@ namespace SwissTransportGui
             }
         }
 
-        private void DepartureBox_TextChanged(object sender, EventArgs e)
+
+        private void DepartureBox_KeyUp(object sender, KeyEventArgs e)
         {
-            var stations = helper.getStations(DepartureBox.Text);
-            DepartureBox.DataSource = stations.StationList;
-            DepartureBox.DisplayMember = "Name";
+            if (departureIsBeingUpdated == false)
+            {
+                departureIsBeingUpdated = true;
+                var txt = DepartureBox.Text;
+
+                Stations stations = helper.getStations(DepartureBox.Text);
+
+                if (stations != null)
+                {
+
+                    List<Station> Data = new List<Station>();
+                    Station MockStation = new Station();
+                    MockStation.Name = DepartureBox.Text;
+
+                    Data.Add(MockStation);
+
+                    DepartureBox.DataSource = null;
+                    Data.AddRange(stations.StationList);
+                    DepartureBox.DataSource = Data;
+
+                    DepartureBox.DisplayMember = "Name";
+                    DepartureBox.DroppedDown = true;
+                    DepartureBox.SelectedIndex = 0;
+                    Cursor.Current = Cursors.Default;
+                    DepartureBox.Select(txt.Length, 0);
+
+
+
+                }
+                departureIsBeingUpdated = false;
+            }
+        }
+
+        private void DestinationBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (destinationIsBeingUpdated == false)
+            {
+                destinationIsBeingUpdated = true;
+                var txt = DestinationBox.Text;
+
+                Stations stations = helper.getStations(DestinationBox.Text);
+
+                if (stations != null)
+                {
+
+                    List<Station> Data = new List<Station>();
+                    Station MockStation = new Station();
+                    MockStation.Name = DestinationBox.Text;
+
+                    Data.Add(MockStation);
+                    Data.AddRange(stations.StationList);
+
+                    Console.WriteLine(stations.StationList[0].Coordinate.XCoordinate.ToString());
+
+                    DestinationBox.DataSource = Data;
+
+                    DestinationBox.DisplayMember = "Name";
+                    DestinationBox.DroppedDown = true;
+                    DestinationBox.SelectedIndex = 0;
+                    Cursor.Current = Cursors.Default;
+                    DestinationBox.Select(txt.Length, 0);
+
+
+
+                }
+                destinationIsBeingUpdated = false;
+            }
+            }
+
+        private void DepartureBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Station selectedDeparture = DepartureBox.SelectedItem as Station;
             
+        }
+
+        private void DestinationBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Station selectedDestination = DestinationBox.SelectedItem as Station;
+
         }
     }
 }

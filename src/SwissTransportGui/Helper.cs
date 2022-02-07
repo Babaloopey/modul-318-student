@@ -42,6 +42,7 @@ namespace SwissTransportGui
             {
                 Stations stations = transport.GetStations(searchTerm);
 
+     
                 //if(stations.StationList.Count == 0)
                 //{
                 //    MessageBox.Show("Keine Stationen mit diesem Namen gefunden");

@@ -58,6 +58,25 @@
             return this.GetObject<Connections>(uri);
         }
 
+        public Connections GetConnectionsWithDateTime(string fromStation, string toStation, string date, string time)
+        {
+            if (string.IsNullOrEmpty(fromStation))
+            {
+                throw new ArgumentNullException(nameof(fromStation));
+            }
+
+            if (string.IsNullOrEmpty(toStation))
+            {
+                throw new ArgumentNullException(nameof(toStation));
+            }
+
+            var uri = new Uri($"{WebApiHost}connections?from={fromStation}&to={toStation}&date={date}&time={time}");
+            return this.GetObject<Connections>(uri);
+        }
+
+
+      //  http://transport.opendata.ch/v1/connections?from=bern&to=luzern&date=2022-07-02&time=06:50
+
         public void Dispose()
         {
             this.httpClient?.Dispose();

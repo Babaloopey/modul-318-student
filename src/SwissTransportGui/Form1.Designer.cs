@@ -30,8 +30,9 @@
         {
             this.TabManager = new System.Windows.Forms.TabControl();
             this.ConnectionsTab = new System.Windows.Forms.TabPage();
-            this.DestinationBox = new System.Windows.Forms.ComboBox();
             this.DepartureBox = new System.Windows.Forms.ComboBox();
+            this.StationboardLbl = new System.Windows.Forms.Label();
+            this.DestinationBox = new System.Windows.Forms.ComboBox();
             this.StationLbl = new System.Windows.Forms.Label();
             this.TimeBox = new System.Windows.Forms.DomainUpDown();
             this.TimeLbl = new System.Windows.Forms.Label();
@@ -69,8 +70,9 @@
             // 
             // ConnectionsTab
             // 
-            this.ConnectionsTab.Controls.Add(this.DestinationBox);
             this.ConnectionsTab.Controls.Add(this.DepartureBox);
+            this.ConnectionsTab.Controls.Add(this.StationboardLbl);
+            this.ConnectionsTab.Controls.Add(this.DestinationBox);
             this.ConnectionsTab.Controls.Add(this.StationLbl);
             this.ConnectionsTab.Controls.Add(this.TimeBox);
             this.ConnectionsTab.Controls.Add(this.TimeLbl);
@@ -89,6 +91,25 @@
             this.ConnectionsTab.Text = "Verbindungen";
             this.ConnectionsTab.UseVisualStyleBackColor = true;
             // 
+            // DepartureBox
+            // 
+            this.DepartureBox.FormattingEnabled = true;
+            this.DepartureBox.Location = new System.Drawing.Point(209, 33);
+            this.DepartureBox.Name = "DepartureBox";
+            this.DepartureBox.Size = new System.Drawing.Size(373, 40);
+            this.DepartureBox.TabIndex = 14;
+            this.DepartureBox.SelectedIndexChanged += new System.EventHandler(this.DepartureBox_SelectedIndexChanged);
+
+            this.DepartureBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DepartureBox_KeyUp);
+            // 
+            // StationboardLbl
+            // 
+            this.StationboardLbl.AutoSize = true;
+            this.StationboardLbl.Location = new System.Drawing.Point(32, 173);
+            this.StationboardLbl.Name = "StationboardLbl";
+            this.StationboardLbl.Size = new System.Drawing.Size(0, 32);
+            this.StationboardLbl.TabIndex = 1;
+            // 
             // DestinationBox
             // 
             this.DestinationBox.FormattingEnabled = true;
@@ -96,15 +117,9 @@
             this.DestinationBox.Name = "DestinationBox";
             this.DestinationBox.Size = new System.Drawing.Size(373, 40);
             this.DestinationBox.TabIndex = 13;
-            // 
-            // DepartureBox
-            // 
-            this.DepartureBox.FormattingEnabled = true;
-            this.DepartureBox.Location = new System.Drawing.Point(209, 30);
-            this.DepartureBox.Name = "DepartureBox";
-            this.DepartureBox.Size = new System.Drawing.Size(373, 40);
-            this.DepartureBox.TabIndex = 12;
-            this.DepartureBox.TextChanged += new System.EventHandler(this.DepartureBox_TextChanged);
+            this.DestinationBox.SelectedIndexChanged += new System.EventHandler(this.DestinationBox_SelectedIndexChanged);
+
+            this.DestinationBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DestinationBox_KeyUp);
             // 
             // StationLbl
             // 
@@ -315,7 +330,8 @@
         private Button SubmitStationBtn;
         private DataGridView StationsGrid;
         private Label StationLbl;
-        private ComboBox DepartureBox;
         private ComboBox DestinationBox;
+        private Label StationboardLbl;
+        private ComboBox DepartureBox;
     }
 }
