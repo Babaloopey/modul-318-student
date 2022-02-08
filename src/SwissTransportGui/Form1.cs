@@ -276,5 +276,12 @@ namespace SwissTransportGui
                 mail.sendMail();
             }
         }
+
+        private void SwapBtn_Click(object sender, EventArgs e)
+        {
+            string temp = DepartureBox.Text;
+            DepartureBox.Text = DestinationBox.Text;
+            DestinationBox.Text = temp;
+        }
     }
 }

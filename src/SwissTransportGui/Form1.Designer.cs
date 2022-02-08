@@ -30,6 +30,7 @@
         {
             this.TabManager = new System.Windows.Forms.TabControl();
             this.ConnectionsTab = new System.Windows.Forms.TabPage();
+            this.SwapBtn = new System.Windows.Forms.Button();
             this.MailBtn = new System.Windows.Forms.Button();
             this.TimePicker = new System.Windows.Forms.DateTimePicker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -73,6 +74,7 @@
             // 
             // ConnectionsTab
             // 
+            this.ConnectionsTab.Controls.Add(this.SwapBtn);
             this.ConnectionsTab.Controls.Add(this.MailBtn);
             this.ConnectionsTab.Controls.Add(this.TimePicker);
             this.ConnectionsTab.Controls.Add(this.pictureBox1);
@@ -96,6 +98,16 @@
             this.ConnectionsTab.Text = "Verbindungen";
             this.ConnectionsTab.UseVisualStyleBackColor = true;
             // 
+            // SwapBtn
+            // 
+            this.SwapBtn.Location = new System.Drawing.Point(352, 78);
+            this.SwapBtn.Name = "SwapBtn";
+            this.SwapBtn.Size = new System.Drawing.Size(63, 46);
+            this.SwapBtn.TabIndex = 18;
+            this.SwapBtn.Text = "🔀";
+            this.SwapBtn.UseVisualStyleBackColor = true;
+            this.SwapBtn.Click += new System.EventHandler(this.SwapBtn_Click);
+            // 
             // MailBtn
             // 
             this.MailBtn.Location = new System.Drawing.Point(1237, 159);
@@ -109,7 +121,7 @@
             // TimePicker
             // 
             this.TimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.TimePicker.Location = new System.Drawing.Point(833, 99);
+            this.TimePicker.Location = new System.Drawing.Point(833, 128);
             this.TimePicker.Name = "TimePicker";
             this.TimePicker.ShowCheckBox = true;
             this.TimePicker.ShowUpDown = true;
@@ -157,7 +169,7 @@
             // DestinationBox
             // 
             this.DestinationBox.FormattingEnabled = true;
-            this.DestinationBox.Location = new System.Drawing.Point(209, 96);
+            this.DestinationBox.Location = new System.Drawing.Point(209, 130);
             this.DestinationBox.Name = "DestinationBox";
             this.DestinationBox.Size = new System.Drawing.Size(373, 40);
             this.DestinationBox.TabIndex = 13;
@@ -175,7 +187,7 @@
             // TimeLbl
             // 
             this.TimeLbl.AutoSize = true;
-            this.TimeLbl.Location = new System.Drawing.Point(715, 99);
+            this.TimeLbl.Location = new System.Drawing.Point(716, 130);
             this.TimeLbl.Name = "TimeLbl";
             this.TimeLbl.Size = new System.Drawing.Size(60, 32);
             this.TimeLbl.TabIndex = 9;
@@ -193,7 +205,7 @@
             // DestinationLbl
             // 
             this.DestinationLbl.AutoSize = true;
-            this.DestinationLbl.Location = new System.Drawing.Point(124, 99);
+            this.DestinationLbl.Location = new System.Drawing.Point(124, 130);
             this.DestinationLbl.Name = "DestinationLbl";
             this.DestinationLbl.Size = new System.Drawing.Size(74, 32);
             this.DestinationLbl.TabIndex = 6;
@@ -366,5 +378,6 @@
         private PictureBox pictureBox1;
         private DateTimePicker TimePicker;
         private Button MailBtn;
+        private Button SwapBtn;
     }
 }
