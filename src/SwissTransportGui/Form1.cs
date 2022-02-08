@@ -16,6 +16,8 @@ namespace SwissTransportGui
         Station SelectedDestination = new Station();
 
         Station SelectedStation = new Station();
+        ConnectionForDisplay SelectedConnection = null; 
+        StationboardForDisplay SelectedStationboardentry = null;
 
         
 
@@ -26,12 +28,16 @@ namespace SwissTransportGui
  
             DatePicker.Checked = false;
             TimePicker.Checked = false;
+
+            MailBtn.Enabled = false;
+            MapBtn.Enabled = false;
         }
 
 
 
         private void ConnectionBtn_Click(object sender, EventArgs e)
         {
+            StationLbl.Text = "";
             string departure = DepartureBox.Text;
             string destination = DestinationBox.Text;
 
@@ -94,7 +100,7 @@ namespace SwissTransportGui
                     StationsGrid.Columns[4].Visible = false;
                     StationsGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
-                if(stations.StationList.Count() == 0)
+                if(stations == null || stations.StationList.Count() == 0)
                 {
                     MessageBox.Show("Keine Stationen gefunden");
                 }
@@ -110,7 +116,7 @@ namespace SwissTransportGui
         private void DepartureboardBtn_Click(object sender, EventArgs e)
         {
             string location = DepartureBox.Text;
-            List<StationboardForDisplay> stationBoard = helper.getStationBoard(location);
+            List<StationboardForDisplay> stationBoard = helper.getStationBoard(location, StationLbl);
 
             if (stationBoard != null)
             {
@@ -210,6 +216,7 @@ namespace SwissTransportGui
         private void StationsGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             SelectedStation = (Station)StationsGrid.CurrentRow.DataBoundItem;
+            MapBtn.Enabled = true;
         }
 
         private void MapBtn_Click(object sender, EventArgs e)
@@ -226,6 +233,48 @@ namespace SwissTransportGui
 
             }
             else { MessageBox.Show("Wählen sie eine Station aus"); }
+        }
+
+        private void DataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (DataGrid.CurrentRow.DataBoundItem is ConnectionForDisplay)
+            {
+                SelectedConnection = (ConnectionForDisplay)DataGrid.CurrentRow.DataBoundItem;
+                SelectedStationboardentry = null;
+            }
+            else if (DataGrid.CurrentRow.DataBoundItem is StationboardForDisplay)
+            {
+                SelectedStationboardentry = (StationboardForDisplay)DataGrid.CurrentRow.DataBoundItem;
+                SelectedConnection = null;
+            }
+            MailBtn.Enabled = true;
+
+        }
+
+        private void MailBtn_Click(object sender, EventArgs e)
+        {
+            if(SelectedStationboardentry != null)
+            {
+                var Body =   StationLbl +
+                    "%0A" + "Ankunftsort: " + SelectedStationboardentry.Nach +
+                    "%0A" + "Bezeichnung: " + SelectedStationboardentry.Bezeichnung +
+                    "%0A" + "Abfahrt: " + SelectedStationboardentry.Abfahrt;
+                
+                Mail mail = new Mail(Body);
+                
+                mail.sendMail();
+            }
+            else if(SelectedConnection != null)
+            {
+                
+                var Body = "Abfahrtsort: " + SelectedConnection.Abfahrtsort + "Zeit: " + SelectedConnection.Abfahrt +
+                "%0A" + "Ankunftsort: " + SelectedConnection.Ankunftsort + "Zeit: " + SelectedConnection.Ankunft +
+                "%0A" + "Dauer: " + SelectedConnection.Dauer + "%0A" + "Kante/Gleis: " + SelectedConnection.Kante;
+                
+                Mail mail = new Mail(Body);
+                
+                mail.sendMail();
+            }
         }
     }
 }

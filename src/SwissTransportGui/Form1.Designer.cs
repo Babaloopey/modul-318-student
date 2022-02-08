@@ -30,6 +30,7 @@
         {
             this.TabManager = new System.Windows.Forms.TabControl();
             this.ConnectionsTab = new System.Windows.Forms.TabPage();
+            this.MailBtn = new System.Windows.Forms.Button();
             this.TimePicker = new System.Windows.Forms.DateTimePicker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.DataGrid = new System.Windows.Forms.DataGridView();
@@ -72,6 +73,7 @@
             // 
             // ConnectionsTab
             // 
+            this.ConnectionsTab.Controls.Add(this.MailBtn);
             this.ConnectionsTab.Controls.Add(this.TimePicker);
             this.ConnectionsTab.Controls.Add(this.pictureBox1);
             this.ConnectionsTab.Controls.Add(this.DataGrid);
@@ -93,6 +95,16 @@
             this.ConnectionsTab.TabIndex = 0;
             this.ConnectionsTab.Text = "Verbindungen";
             this.ConnectionsTab.UseVisualStyleBackColor = true;
+            // 
+            // MailBtn
+            // 
+            this.MailBtn.Location = new System.Drawing.Point(1237, 159);
+            this.MailBtn.Name = "MailBtn";
+            this.MailBtn.Size = new System.Drawing.Size(294, 46);
+            this.MailBtn.TabIndex = 17;
+            this.MailBtn.Text = "Verbindung teilen";
+            this.MailBtn.UseVisualStyleBackColor = true;
+            this.MailBtn.Click += new System.EventHandler(this.MailBtn_Click);
             // 
             // TimePicker
             // 
@@ -122,6 +134,7 @@
             this.DataGrid.RowTemplate.Height = 41;
             this.DataGrid.Size = new System.Drawing.Size(1578, 835);
             this.DataGrid.TabIndex = 0;
+            this.DataGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGrid_CellClick);
             // 
             // DepartureBox
             // 
@@ -352,5 +365,6 @@
         private ComboBox DepartureBox;
         private PictureBox pictureBox1;
         private DateTimePicker TimePicker;
+        private Button MailBtn;
     }
 }

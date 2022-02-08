@@ -66,7 +66,7 @@ namespace SwissTransportGui
             return null;
         }
 
-        public List<StationboardForDisplay> getStationBoard(string location)
+        public List<StationboardForDisplay> getStationBoard(string location, Control StationLbl)
         {
             if (!String.IsNullOrEmpty(location))
             {
@@ -83,6 +83,7 @@ namespace SwissTransportGui
                     stationboardsForDisplay.Add(stationboardForDisplay);
                 }
 
+                StationLbl.Text = "Abfahrtsstation: "+stationboard.Station.Name;
                 return stationboardsForDisplay;
             }
 
