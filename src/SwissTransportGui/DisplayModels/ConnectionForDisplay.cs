@@ -8,14 +8,16 @@ namespace SwissTransportGui
 {
     internal class ConnectionForDisplay
     {
-        public String Abfahrtsort { get; set; }
-        public String Abfahrt { get; set; }
+        public string Abfahrtsort { get; set; }
+        public string Abfahrt { get; set; }
 
-        public String Ankunftsort { get; set; }
-        public String Ankunft { get; set; }
+        public string Ankunftsort { get; set; }
+        public string Ankunft { get; set; }
 
-        public String Dauer { get; set; }
-        public String Kante { get; set; }
+        public string Dauer { get; set; }
+        public string Kante { get; set; }
+
+       
 
     }
 }

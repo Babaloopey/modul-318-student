@@ -12,21 +12,33 @@ namespace SwissTransportGui
     {
         private ITransport transport = new Transport();
 
-        public List<ConnectionForDisplay> getConnections(string departure, string destination)
+
+
+        public List<ConnectionForDisplay> getConnections(string departure, string destination, string Date = null, string Time = null)
         {
+            
+
             if (!String.IsNullOrEmpty(destination) && !String.IsNullOrEmpty(departure)){
-                
+                if (Date == null)
+                {
+                    Date = DateTime.Now.ToString("yy-MM-dd");
+                }
+                if (Time == null)
+                {
+                    Time = DateTime.Now.ToString("HH:mm");
+                }
+
                 List<ConnectionForDisplay> connectionsForDisplay = new List<ConnectionForDisplay>();
 
-                Connections connections = transport.GetConnections(departure, destination);
+                Connections connections = transport.GetConnectionsWithDateTime(departure, destination, Date, Time);
+
 
                 foreach (Connection connection in connections.ConnectionList) {
-                    
                         ConnectionForDisplay connectionForDisplay = new ConnectionForDisplay();
                         connectionForDisplay.Ankunftsort = connection.To.Station.Name;
                         connectionForDisplay.Abfahrtsort = connection.From.Station.Name;
-                        connectionForDisplay.Ankunft = SeparateDateTime(connection.To.Arrival.ToString())[1];
-                        connectionForDisplay.Abfahrt = SeparateDateTime(connection.From.Departure.ToString())[1];
+                        connectionForDisplay.Ankunft = connection.To.Arrival.ToString();
+                        connectionForDisplay.Abfahrt = connection.From.Departure.ToString();
                         connectionForDisplay.Dauer = connection.Duration.ToString();
                         if(connection.To.Platform != null) connectionForDisplay.Kante = connection.To.Platform.ToString();
 
@@ -56,7 +68,6 @@ namespace SwissTransportGui
 
         public List<StationboardForDisplay> getStationBoard(string location)
         {
-            Console.WriteLine(location);
             if (!String.IsNullOrEmpty(location))
             {
                 List<StationboardForDisplay> stationboardsForDisplay = new List<StationboardForDisplay>();

@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using SwissTransport.Models;
+using System.Diagnostics;
 
 namespace SwissTransportGui
 {
@@ -14,11 +15,17 @@ namespace SwissTransportGui
         Station SelectedDeparture = new Station();
         Station SelectedDestination = new Station();
 
+        Station SelectedStation = new Station();
+
+        
+
         public Form1()
         {
             InitializeComponent();
             AllocConsole();
-            DepartureBox.DisplayMember = "Name";
+ 
+            DatePicker.Checked = false;
+            TimePicker.Checked = false;
         }
 
 
@@ -28,18 +35,40 @@ namespace SwissTransportGui
             string departure = DepartureBox.Text;
             string destination = DestinationBox.Text;
 
-            var connections = helper.getConnections(departure, destination);
+            List<ConnectionForDisplay> connections = new List<ConnectionForDisplay>();
+
+           if(DatePicker.Checked && TimePicker.Checked)
+            {
+                connections = helper.getConnections(departure, destination, Date: DatePicker.Value.ToString("yyyy-MM-dd"), Time: TimePicker.Value.ToString("HH:mm"));
+            }
+            else if (DatePicker.Checked)
+            {
+                connections = helper.getConnections(departure, destination, Date: DatePicker.Value.ToString("yyyy-MM-dd"));
+            }
+           else if (TimePicker.Checked)
+            {
+                connections = helper.getConnections(departure, destination, Time: TimePicker.Value.ToString("HH:mm"));
+            }
+            else
+            {
+                connections = helper.getConnections(departure, destination);
+            }
+
 
             if (connections != null)
             {
                 DataGrid.DataSource = connections;
 
-                DataGrid.Columns[0].Width = (int)(DataGrid.Width * 0.25);
-                DataGrid.Columns[1].Width = (int)(DataGrid.Width * 0.1);
-                DataGrid.Columns[2].Width = (int)(DataGrid.Width * 0.25);
-                DataGrid.Columns[3].Width = (int)(DataGrid.Width * 0.1);
+                DataGrid.Columns[0].Width = (int)(DataGrid.Width * 0.2);
+                DataGrid.Columns[1].Width = (int)(DataGrid.Width * 0.17);
+                DataGrid.Columns[2].Width = (int)(DataGrid.Width * 0.2);
+                DataGrid.Columns[3].Width = (int)(DataGrid.Width * 0.17);
                 DataGrid.Columns[4].Width = (int)(DataGrid.Width * 0.1);
                 DataGrid.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            if(connections == null || connections.Count() == 0)
+            {
+                MessageBox.Show("Keine Verbindungen gefunden");
             }
         }
 
@@ -65,6 +94,10 @@ namespace SwissTransportGui
                     StationsGrid.Columns[4].Visible = false;
                     StationsGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
+                if(stations.StationList.Count() == 0)
+                {
+                    MessageBox.Show("Keine Stationen gefunden");
+                }
             }
             catch
             {
@@ -86,6 +119,9 @@ namespace SwissTransportGui
                 DataGrid.Columns[0].Width = (int)(DataGrid.Width * 0.35);
                 DataGrid.Columns[1].Width = (int)(DataGrid.Width * 0.3);
                 DataGrid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            if(stationBoard.Count == 0){
+                MessageBox.Show("Kein Ergebnis gefunden");
             }
         }
 
@@ -144,8 +180,6 @@ namespace SwissTransportGui
                     Data.Add(MockStation);
                     Data.AddRange(stations.StationList);
 
-                    Console.WriteLine(stations.StationList[0].Coordinate.XCoordinate.ToString());
-
                     DestinationBox.DataSource = Data;
 
                     DestinationBox.DisplayMember = "Name";
@@ -171,6 +205,27 @@ namespace SwissTransportGui
         {
             Station selectedDestination = DestinationBox.SelectedItem as Station;
 
+        }
+
+        private void StationsGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SelectedStation = (Station)StationsGrid.CurrentRow.DataBoundItem;
+        }
+
+        private void MapBtn_Click(object sender, EventArgs e)
+        {
+            if(SelectedStation.Coordinate != null)
+            {
+                if (SelectedStation.Coordinate.XCoordinate != null && SelectedStation.Coordinate.YCoordinate != null)
+                {
+                    Process.Start(new ProcessStartInfo("https://map.search.ch/" + SelectedStation.Coordinate.XCoordinate + "," + SelectedStation.Coordinate.YCoordinate) { UseShellExecute = true });
+                }
+                else { MessageBox.Show("Keine Haltestelle gefunden"); }
+
+
+
+            }
+            else { MessageBox.Show("Wählen sie eine Station aus"); }
         }
     }
 }

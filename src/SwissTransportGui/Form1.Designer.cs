@@ -30,11 +30,13 @@
         {
             this.TabManager = new System.Windows.Forms.TabControl();
             this.ConnectionsTab = new System.Windows.Forms.TabPage();
+            this.TimePicker = new System.Windows.Forms.DateTimePicker();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.DataGrid = new System.Windows.Forms.DataGridView();
             this.DepartureBox = new System.Windows.Forms.ComboBox();
             this.StationboardLbl = new System.Windows.Forms.Label();
             this.DestinationBox = new System.Windows.Forms.ComboBox();
             this.StationLbl = new System.Windows.Forms.Label();
-            this.TimeBox = new System.Windows.Forms.DomainUpDown();
             this.TimeLbl = new System.Windows.Forms.Label();
             this.DateLbl = new System.Windows.Forms.Label();
             this.DestinationLbl = new System.Windows.Forms.Label();
@@ -42,7 +44,6 @@
             this.DepartureboardBtn = new System.Windows.Forms.Button();
             this.ConnectionBtn = new System.Windows.Forms.Button();
             this.DatePicker = new System.Windows.Forms.DateTimePicker();
-            this.DataGrid = new System.Windows.Forms.DataGridView();
             this.SearchTab = new System.Windows.Forms.TabPage();
             this.MapBtn = new System.Windows.Forms.Button();
             this.SubmitStationBtn = new System.Windows.Forms.Button();
@@ -53,6 +54,7 @@
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.TabManager.SuspendLayout();
             this.ConnectionsTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).BeginInit();
             this.SearchTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StationsGrid)).BeginInit();
@@ -70,11 +72,13 @@
             // 
             // ConnectionsTab
             // 
+            this.ConnectionsTab.Controls.Add(this.TimePicker);
+            this.ConnectionsTab.Controls.Add(this.pictureBox1);
+            this.ConnectionsTab.Controls.Add(this.DataGrid);
             this.ConnectionsTab.Controls.Add(this.DepartureBox);
             this.ConnectionsTab.Controls.Add(this.StationboardLbl);
             this.ConnectionsTab.Controls.Add(this.DestinationBox);
             this.ConnectionsTab.Controls.Add(this.StationLbl);
-            this.ConnectionsTab.Controls.Add(this.TimeBox);
             this.ConnectionsTab.Controls.Add(this.TimeLbl);
             this.ConnectionsTab.Controls.Add(this.DateLbl);
             this.ConnectionsTab.Controls.Add(this.DestinationLbl);
@@ -82,7 +86,6 @@
             this.ConnectionsTab.Controls.Add(this.DepartureboardBtn);
             this.ConnectionsTab.Controls.Add(this.ConnectionBtn);
             this.ConnectionsTab.Controls.Add(this.DatePicker);
-            this.ConnectionsTab.Controls.Add(this.DataGrid);
             this.ConnectionsTab.Location = new System.Drawing.Point(8, 46);
             this.ConnectionsTab.Name = "ConnectionsTab";
             this.ConnectionsTab.Padding = new System.Windows.Forms.Padding(3);
@@ -90,6 +93,35 @@
             this.ConnectionsTab.TabIndex = 0;
             this.ConnectionsTab.Text = "Verbindungen";
             this.ConnectionsTab.UseVisualStyleBackColor = true;
+            // 
+            // TimePicker
+            // 
+            this.TimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.TimePicker.Location = new System.Drawing.Point(833, 99);
+            this.TimePicker.Name = "TimePicker";
+            this.TimePicker.ShowCheckBox = true;
+            this.TimePicker.ShowUpDown = true;
+            this.TimePicker.Size = new System.Drawing.Size(242, 39);
+            this.TimePicker.TabIndex = 16;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(660, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(8, 8);
+            this.pictureBox1.TabIndex = 15;
+            this.pictureBox1.TabStop = false;
+            // 
+            // DataGrid
+            // 
+            this.DataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGrid.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DataGrid.Location = new System.Drawing.Point(3, 226);
+            this.DataGrid.Name = "DataGrid";
+            this.DataGrid.RowHeadersWidth = 82;
+            this.DataGrid.RowTemplate.Height = 41;
+            this.DataGrid.Size = new System.Drawing.Size(1578, 835);
+            this.DataGrid.TabIndex = 0;
             // 
             // DepartureBox
             // 
@@ -99,7 +131,6 @@
             this.DepartureBox.Size = new System.Drawing.Size(373, 40);
             this.DepartureBox.TabIndex = 14;
             this.DepartureBox.SelectedIndexChanged += new System.EventHandler(this.DepartureBox_SelectedIndexChanged);
-
             this.DepartureBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DepartureBox_KeyUp);
             // 
             // StationboardLbl
@@ -118,7 +149,6 @@
             this.DestinationBox.Size = new System.Drawing.Size(373, 40);
             this.DestinationBox.TabIndex = 13;
             this.DestinationBox.SelectedIndexChanged += new System.EventHandler(this.DestinationBox_SelectedIndexChanged);
-
             this.DestinationBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.DestinationBox_KeyUp);
             // 
             // StationLbl
@@ -128,13 +158,6 @@
             this.StationLbl.Name = "StationLbl";
             this.StationLbl.Size = new System.Drawing.Size(0, 32);
             this.StationLbl.TabIndex = 11;
-            // 
-            // TimeBox
-            // 
-            this.TimeBox.Location = new System.Drawing.Point(835, 97);
-            this.TimeBox.Name = "TimeBox";
-            this.TimeBox.Size = new System.Drawing.Size(240, 39);
-            this.TimeBox.TabIndex = 10;
             // 
             // TimeLbl
             // 
@@ -194,20 +217,12 @@
             // 
             // DatePicker
             // 
+            this.DatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.DatePicker.Location = new System.Drawing.Point(833, 28);
             this.DatePicker.Name = "DatePicker";
+            this.DatePicker.ShowCheckBox = true;
             this.DatePicker.Size = new System.Drawing.Size(242, 39);
             this.DatePicker.TabIndex = 1;
-            // 
-            // DataGrid
-            // 
-            this.DataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGrid.Location = new System.Drawing.Point(6, 223);
-            this.DataGrid.Name = "DataGrid";
-            this.DataGrid.RowHeadersWidth = 82;
-            this.DataGrid.RowTemplate.Height = 41;
-            this.DataGrid.Size = new System.Drawing.Size(1572, 835);
-            this.DataGrid.TabIndex = 0;
             // 
             // SearchTab
             // 
@@ -234,6 +249,7 @@
             this.MapBtn.TabIndex = 6;
             this.MapBtn.Text = "Karte";
             this.MapBtn.UseVisualStyleBackColor = true;
+            this.MapBtn.Click += new System.EventHandler(this.MapBtn_Click);
             // 
             // SubmitStationBtn
             // 
@@ -253,6 +269,7 @@
             this.StationsGrid.RowTemplate.Height = 41;
             this.StationsGrid.Size = new System.Drawing.Size(1572, 856);
             this.StationsGrid.TabIndex = 4;
+            this.StationsGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.StationsGrid_CellClick);
             // 
             // LookForStationsBtn
             // 
@@ -300,6 +317,7 @@
             this.TabManager.ResumeLayout(false);
             this.ConnectionsTab.ResumeLayout(false);
             this.ConnectionsTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataGrid)).EndInit();
             this.SearchTab.ResumeLayout(false);
             this.SearchTab.PerformLayout();
@@ -319,7 +337,6 @@
         private DateTimePicker DatePicker;
         private DataGridView DataGrid;
         private TabPage SearchTab;
-        private DomainUpDown TimeBox;
         private Label TimeLbl;
         private Label DateLbl;
         private Button LookForStationsBtn;
@@ -333,5 +350,7 @@
         private ComboBox DestinationBox;
         private Label StationboardLbl;
         private ComboBox DepartureBox;
+        private PictureBox pictureBox1;
+        private DateTimePicker TimePicker;
     }
 }
