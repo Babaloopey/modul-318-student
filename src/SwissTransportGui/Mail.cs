@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace SwissTransportGui
 {
-    internal class Mail
+    public class Mail
     {
         public string Body { get; set; }
         private string subject = "ÖV- Verbindung";

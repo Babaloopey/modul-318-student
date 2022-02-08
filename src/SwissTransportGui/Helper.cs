@@ -8,7 +8,7 @@ using SwissTransport.Models;
 
 namespace SwissTransportGui
 {
-    internal class Helper
+    public class Helper
     {
         private ITransport transport = new Transport();
 

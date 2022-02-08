@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SwissTransportGui
 {
-    internal class StationboardForDisplay
+    public class StationboardForDisplay
     {
         public string Nach { get; set; }
         public string Bezeichnung { get; set; }
