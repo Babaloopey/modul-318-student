@@ -4,6 +4,7 @@
     using SwissTransport.Core;
     using SwissTransport.Models;
     using Xunit;
+    using System;
 
     public class TransportTest
     {
@@ -36,6 +37,23 @@
             Connections connections = this.testee.GetConnections("Sursee", "Luzern");
 
             connections.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void ConnectionsWithDateTime()
+        {
+            DateTime comparison = new DateTime(2022, 02, 07, 08, 00, 00);
+
+            Connections connections = this.testee.GetConnectionsWithDateTime("Sursee", "Luzern", "2022-02-07", "08:00");
+            connections.Should().NotBeNull();
+
+            foreach (Connection connection in connections.ConnectionList) {
+                connection.To.Station.Name.Should().Be("Luzern");
+                connection.From.Station.Name.Should().Be("Sursee");
+
+                connection.From.Departure.Should().BeAfter(comparison);
+
+            }
         }
     }
 }
