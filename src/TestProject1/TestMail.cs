@@ -31,7 +31,7 @@ namespace TestProject1
         {
             try
             {
-                mail.sendMail();
+                mail.SendMail();
                 Assert.IsTrue(true);
             }
             catch

@@ -11,5 +11,12 @@ namespace SwissTransportGui
         public string Nach { get; set; }
         public string Bezeichnung { get; set; }
         public string Abfahrt { get; set; }
+
+        public StationboardForDisplay()
+        {
+            Nach = "";
+            Bezeichnung = "";
+            Abfahrt = "";
+        }
     }
 }

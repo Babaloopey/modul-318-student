@@ -1,37 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SwissTransport.Models
+﻿namespace SwissTransport.Models
 {
     using Newtonsoft.Json;
+
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
     public class NearStation
     {
         [JsonProperty("label")]
-        public string label { get; set; }
+        public string Label { get; set; }
 
         [JsonProperty("dist")]
-        public double dist { get; set; }
+        public double Dist { get; set; }
 
         [JsonProperty("iconclass")]
-        public string iconclass { get; set; }
+        public string Iconclass { get; set; }
 
         [JsonProperty("x")]
-        public string x { get; set; }
+        public string X { get; set; }
 
         [JsonProperty("y")]
-        public string y { get; set; }
+        public string Y { get; set; }
 
         [JsonProperty("lon")]
-        public double? lon { get; set; }
+        public double? Lon { get; set; }
 
         [JsonProperty("lat")]
-        public double? lat { get; set; }
-     
+        public double? Lat { get; set; }
     }
-
-
 }

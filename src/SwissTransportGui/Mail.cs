@@ -18,7 +18,7 @@ namespace SwissTransportGui
             Body = body;
         }
 
-        public void sendMail()
+        public void SendMail()
         {
             Process.Start(new ProcessStartInfo("mailto:" + "" + "?subject=" + subject + "&body="
             + Body) { UseShellExecute = true });

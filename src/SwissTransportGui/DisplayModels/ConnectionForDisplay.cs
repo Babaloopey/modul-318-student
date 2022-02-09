@@ -17,6 +17,16 @@ namespace SwissTransportGui
         public string Dauer { get; set; }
         public string Kante { get; set; }
 
+        public ConnectionForDisplay()
+        {
+            Abfahrtsort = "";
+            Abfahrt = "";
+            Ankunftsort = "";
+            Ankunft = "";
+            Dauer = "";
+            Kante = "";
+        }
+
        
 
     }

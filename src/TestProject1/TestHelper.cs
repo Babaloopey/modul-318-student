@@ -25,7 +25,7 @@ namespace TestProject1
 
         public bool TestGetConnections(string departure, string destination)
         {
-            var result = helper.getConnections(departure, destination);
+            var result = helper.GetConnections(departure, destination);
             if (result != null)
             {
                 return true;
@@ -42,22 +42,24 @@ namespace TestProject1
         public bool TestGetConnectionsDateTime(string departure, string destination, string date, string time)
         {
 
-            List<ConnectionForDisplay> results = helper.getConnections(departure, destination, date, time);
-
-            if (results.Count != 0)
+            List<ConnectionForDisplay>? results = helper.GetConnections(departure, destination, date, time);
+            if (results != null)
             {
-                foreach (ConnectionForDisplay result in results)
+                if (results.Count != 0)
                 {
-                    Console.WriteLine(result.Abfahrtsort + result.Ankunftsort);
-                    if (result.Abfahrtsort == "Luzern" && result.Ankunftsort == "Sursee")
+                    foreach (ConnectionForDisplay result in results)
                     {
-                        if (date == "") return true;
-                        if (date != "")
+                        Console.WriteLine(result.Abfahrtsort + result.Ankunftsort);
+                        if (result.Abfahrtsort == "Luzern" && result.Ankunftsort == "Sursee")
                         {
-                            StringAssert.Contains("12.02.2022", result.Abfahrt);
-                            
+                            if (date == "") return true;
+                            if (date != "")
+                            {
+                                StringAssert.Contains("12.02.2022", result.Abfahrt);
+
+                            }
+                            return true;
                         }
-                    return true;
                     }
                 }
             }
@@ -72,7 +74,7 @@ namespace TestProject1
         [TestCase("Luzern", ExpectedResult = true)]
         public bool TestGetStations(string searchTerm)
         {
-            Stations results = helper.getStations(searchTerm);
+            Stations? results = helper.GetStations(searchTerm);
 
 
             if (results != null && results.StationList.Count != 0)
@@ -98,7 +100,7 @@ namespace TestProject1
 
         public bool TestGetStationBoard(string location)
         {
-            List<StationboardForDisplay> results = helper.getStationBoard(location);
+            List<StationboardForDisplay>? results = helper.GetStationBoard(location);
             
             if(results !=null && results.Count > 0)
             {
@@ -118,7 +120,7 @@ namespace TestProject1
             coordinate.XCoordinate = x;
             coordinate.YCoordinate = y;
 
-            List<Station> results = helper.GetNearestStations(coordinate);
+            List<Station>? results = helper.GetNearestStations(coordinate);
 
             if (results != null)
             {

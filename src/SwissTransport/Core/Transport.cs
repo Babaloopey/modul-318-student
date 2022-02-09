@@ -31,12 +31,10 @@
                 throw new ArgumentNullException(nameof(station));
             }
 
-            
-
             string adress = $"{WebApiHost}stationboard?station={station}";
             if (id != null)
             {
-                adress += ($"&id={id}");
+                adress += $"&id={id}";
             }
 
             var uri = new Uri(adress);
@@ -78,8 +76,6 @@
         public List<Station> GetNearestStations(double? xCoordinate, double? yCoordinate)
         {
             var uri = new Uri($"https://fahrplan.search.ch/api/completion.json?latlon={xCoordinate},{yCoordinate}&accuracy=10&show_coordinates=1");
-            
-
 
             HttpResponseMessage response = this.httpClient
                 .GetAsync(uri)
@@ -96,11 +92,11 @@
             foreach (NearStation nearStation in nearStations)
             {
                 Station station = new Station();
-                station.Name = nearStation.label;
+                station.Name = nearStation.Label;
                 station.Coordinate = new Coordinate();
-                station.Coordinate.XCoordinate = nearStation.lat;
-                station.Coordinate.YCoordinate = nearStation.lon;
-                station.Distance = nearStation.dist;
+                station.Coordinate.XCoordinate = nearStation.Lat;
+                station.Coordinate.YCoordinate = nearStation.Lon;
+                station.Distance = nearStation.Dist;
 
                 Console.WriteLine(station.Name);
                 Console.WriteLine(station.Coordinate.XCoordinate);
@@ -113,8 +109,7 @@
             return stations;
         }
 
-      //  http://transport.opendata.ch/v1/connections?from=bern&to=luzern&date=2022-07-02&time=06:50
-
+        // http://transport.opendata.ch/v1/connections?from=bern&to=luzern&date=2022-07-02&time=06:50
         public void Dispose()
         {
             this.httpClient?.Dispose();

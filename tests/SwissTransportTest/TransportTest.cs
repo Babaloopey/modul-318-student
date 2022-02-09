@@ -1,11 +1,11 @@
 ﻿namespace SwissTransport
 {
+    using System;
+    using System.Collections.Generic;
     using FluentAssertions;
     using SwissTransport.Core;
     using SwissTransport.Models;
     using Xunit;
-    using System;
-    using System.Collections.Generic;
 
     public class TransportTest
     {
@@ -54,15 +54,13 @@
                 connection.From.Station.Name.Should().Be("Sursee");
 
                 connection.From.Departure.Should().BeAfter(comparison);
-
-
             }
         }
 
         [Fact]
         public void GetNearestStations()
         {
-            //Koordinaten von Luzern
+            // Koordinaten von Luzern
             List<Station> stations = this.testee.GetNearestStations(47.050174, 8.310185);
 
             stations.Should().NotBeNull();
