@@ -25,7 +25,7 @@ namespace SwissTransportGui
         public Form1()
         {
             InitializeComponent();
-            AllocConsole();
+          //  AllocConsole();
 
             DatePicker.Checked = false;
             TimePicker.Checked = false;
