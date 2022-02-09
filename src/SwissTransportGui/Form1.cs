@@ -16,16 +16,16 @@ namespace SwissTransportGui
         Station SelectedDestination = new Station();
 
         Station SelectedStation = new Station();
-        ConnectionForDisplay SelectedConnection = null; 
+        ConnectionForDisplay SelectedConnection = null;
         StationboardForDisplay SelectedStationboardentry = null;
 
-        
+
 
         public Form1()
         {
             InitializeComponent();
             AllocConsole();
- 
+
             DatePicker.Checked = false;
             TimePicker.Checked = false;
 
@@ -43,7 +43,7 @@ namespace SwissTransportGui
 
             List<ConnectionForDisplay> connections = new List<ConnectionForDisplay>();
 
-           if(DatePicker.Checked && TimePicker.Checked)
+            if (DatePicker.Checked && TimePicker.Checked)
             {
                 connections = helper.getConnections(departure, destination, Date: DatePicker.Value.ToString("yyyy-MM-dd"), Time: TimePicker.Value.ToString("HH:mm"));
             }
@@ -51,7 +51,7 @@ namespace SwissTransportGui
             {
                 connections = helper.getConnections(departure, destination, Date: DatePicker.Value.ToString("yyyy-MM-dd"));
             }
-           else if (TimePicker.Checked)
+            else if (TimePicker.Checked)
             {
                 connections = helper.getConnections(departure, destination, Time: TimePicker.Value.ToString("HH:mm"));
             }
@@ -72,7 +72,7 @@ namespace SwissTransportGui
                 DataGrid.Columns[4].Width = (int)(DataGrid.Width * 0.1);
                 DataGrid.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
-            if(connections == null || connections.Count() == 0)
+            if (connections == null || connections.Count() == 0)
             {
                 MessageBox.Show("Keine Verbindungen gefunden");
             }
@@ -100,7 +100,7 @@ namespace SwissTransportGui
                     StationsGrid.Columns[4].Visible = false;
                     StationsGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
-                if(stations == null || stations.StationList.Count() == 0)
+                if (stations == null || stations.StationList.Count() == 0)
                 {
                     MessageBox.Show("Keine Stationen gefunden");
                 }
@@ -126,7 +126,8 @@ namespace SwissTransportGui
                 DataGrid.Columns[1].Width = (int)(DataGrid.Width * 0.3);
                 DataGrid.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
-            if(stationBoard.Count == 0){
+            if (stationBoard.Count == 0)
+            {
                 MessageBox.Show("Kein Ergebnis gefunden");
             }
         }
@@ -199,12 +200,12 @@ namespace SwissTransportGui
                 }
                 destinationIsBeingUpdated = false;
             }
-            }
+        }
 
         private void DepartureBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Station selectedDeparture = DepartureBox.SelectedItem as Station;
-            
+
         }
 
         private void DestinationBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -221,7 +222,7 @@ namespace SwissTransportGui
 
         private void MapBtn_Click(object sender, EventArgs e)
         {
-            if(SelectedStation.Coordinate != null)
+            if (SelectedStation.Coordinate != null)
             {
                 if (SelectedStation.Coordinate.XCoordinate != null && SelectedStation.Coordinate.YCoordinate != null)
                 {
@@ -253,26 +254,26 @@ namespace SwissTransportGui
 
         private void MailBtn_Click(object sender, EventArgs e)
         {
-            if(SelectedStationboardentry != null)
+            if (SelectedStationboardentry != null)
             {
-                var Body =   StationLbl +
+                var Body = StationLbl +
                     "%0A" + "Ankunftsort: " + SelectedStationboardentry.Nach +
                     "%0A" + "Bezeichnung: " + SelectedStationboardentry.Bezeichnung +
                     "%0A" + "Abfahrt: " + SelectedStationboardentry.Abfahrt;
-                
+
                 Mail mail = new Mail(Body);
-                
+
                 mail.sendMail();
             }
-            else if(SelectedConnection != null)
+            else if (SelectedConnection != null)
             {
-                
+
                 var Body = "Abfahrtsort: " + SelectedConnection.Abfahrtsort + "Zeit: " + SelectedConnection.Abfahrt +
                 "%0A" + "Ankunftsort: " + SelectedConnection.Ankunftsort + "Zeit: " + SelectedConnection.Ankunft +
                 "%0A" + "Dauer: " + SelectedConnection.Dauer + "%0A" + "Kante/Gleis: " + SelectedConnection.Kante;
-                
+
                 Mail mail = new Mail(Body);
-                
+
                 mail.sendMail();
             }
         }
@@ -282,6 +283,38 @@ namespace SwissTransportGui
             string temp = DepartureBox.Text;
             DepartureBox.Text = DestinationBox.Text;
             DestinationBox.Text = temp;
+        }
+
+        private void LookForStationsBtn_Click(object sender, EventArgs e)
+        {
+
+
+
+
+            string searchTerm = SearchBox.Text;
+            List<Station> stations = helper.GetNearestStations(SelectedStation.Coordinate);
+
+            if (stations != null)
+            {
+                StationsGrid.DataSource = stations;
+                StationsGrid.Columns[0].Visible = false;
+                StationsGrid.Columns[2].Visible = false;
+                StationsGrid.Columns[3].Visible = false;
+                StationsGrid.Columns[4].Visible = false;
+                StationsGrid.Columns["Name"].Visible = true;
+                StationsGrid.Columns["Distance"].Visible = true;
+                StationsGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+            if (SelectedStation.Coordinate.XCoordinate == null)
+            {
+                MessageBox.Show("Keine Koordinaten vorhanden");
+            }
+            else if (stations == null || stations.Count() == 0)
+            {
+                MessageBox.Show("Keine Stationen gefunden");
+            }
+
+
         }
     }
 }

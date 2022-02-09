@@ -97,5 +97,21 @@ namespace SwissTransportGui
             string[] array = input.Split(" ");
             return array;
         }
+
+        public List<Station> GetNearestStations(Coordinate coordinate)
+        {
+            if (coordinate != null)
+            {
+                if (coordinate.XCoordinate != null && coordinate.YCoordinate != null)
+                {
+                    List<Station> list = new List<Station>();
+                    return list = transport.GetNearestStations(coordinate.XCoordinate, coordinate.YCoordinate);
+                    
+                
+                }
+                
+            }
+            return null;
+        }
     }
 }

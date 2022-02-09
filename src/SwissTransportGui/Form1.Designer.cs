@@ -304,6 +304,7 @@
             this.LookForStationsBtn.TabIndex = 3;
             this.LookForStationsBtn.Text = "Stationen in der Nähe finden";
             this.LookForStationsBtn.UseVisualStyleBackColor = true;
+            this.LookForStationsBtn.Click += new System.EventHandler(this.LookForStationsBtn_Click);
             // 
             // SearchBtn
             // 
