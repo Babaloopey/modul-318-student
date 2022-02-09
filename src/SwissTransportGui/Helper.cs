@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SwissTransport.Core;
+﻿using SwissTransport.Core;
 using SwissTransport.Models;
 
 namespace SwissTransportGui
@@ -33,18 +28,20 @@ namespace SwissTransportGui
 
                 Connections connections = transport.GetConnectionsWithDateTime(departure, destination, Date, Time);
 
-
-                foreach (Connection connection in connections.ConnectionList)
+                if (connections != null)
                 {
-                    ConnectionForDisplay connectionForDisplay = new ConnectionForDisplay();
-                    connectionForDisplay.Ankunftsort = connection.To.Station.Name;
-                    connectionForDisplay.Abfahrtsort = connection.From.Station.Name;
-                    connectionForDisplay.Ankunft = connection.To.Arrival.ToString();
-                    connectionForDisplay.Abfahrt = connection.From.Departure.ToString();
-                    connectionForDisplay.Dauer = connection.Duration.ToString();
-                    if (connection.To.Platform != null) connectionForDisplay.Kante = connection.To.Platform.ToString();
+                    foreach (Connection connection in connections.ConnectionList)
+                    {
+                        ConnectionForDisplay connectionForDisplay = new ConnectionForDisplay();
+                        connectionForDisplay.Ankunftsort = connection.To.Station.Name;
+                        connectionForDisplay.Abfahrtsort = connection.From.Station.Name;
+                        connectionForDisplay.Ankunft = connection.To.Arrival.ToString();
+                        connectionForDisplay.Abfahrt = connection.From.Departure.ToString();
+                        connectionForDisplay.Dauer = connection.Duration.ToString();
+                        if (connection.To.Platform != null) connectionForDisplay.Kante = connection.To.Platform.ToString();
 
-                    connectionsForDisplay.Add(connectionForDisplay);
+                        connectionsForDisplay.Add(connectionForDisplay);
+                    }
                 }
                 return connectionsForDisplay;
             }
@@ -79,19 +76,22 @@ namespace SwissTransportGui
                 List<StationboardForDisplay> stationboardsForDisplay = new List<StationboardForDisplay>();
                 StationBoardRoot stationboard = transport.GetStationBoard(location, null);
 
-                foreach (StationBoard entry in stationboard.Entries)
+                if (stationboard != null)
                 {
-                    StationboardForDisplay stationboardForDisplay = new StationboardForDisplay();
-                    stationboardForDisplay.Nach = entry.To;
-                    stationboardForDisplay.Bezeichnung = entry.Category.ToString() + entry.Number.ToString();
-                    stationboardForDisplay.Abfahrt = SeparateDateTime(entry.Stop.Departure.ToString())[1];
+                    foreach (StationBoard entry in stationboard.Entries)
+                    {
+                        StationboardForDisplay stationboardForDisplay = new StationboardForDisplay();
+                        stationboardForDisplay.Nach = entry.To;
+                        stationboardForDisplay.Bezeichnung = entry.Category.ToString() + entry.Number.ToString();
+                        stationboardForDisplay.Abfahrt = SeparateDateTime(entry.Stop.Departure.ToString())[1];
 
-                    stationboardsForDisplay.Add(stationboardForDisplay);
+                        stationboardsForDisplay.Add(stationboardForDisplay);
+                    }
+
+                    if (StationLbl != null) StationLbl.Text = "Abfahrtsstation: " + stationboard.Station.Name;
+
+                    return stationboardsForDisplay;
                 }
-
-                if (StationLbl != null) StationLbl.Text = "Abfahrtsstation: " + stationboard.Station.Name;
-
-                return stationboardsForDisplay;
             }
 
             return null;

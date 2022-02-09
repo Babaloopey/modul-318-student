@@ -48,7 +48,6 @@
             this.DatePicker = new System.Windows.Forms.DateTimePicker();
             this.SearchTab = new System.Windows.Forms.TabPage();
             this.MapBtn = new System.Windows.Forms.Button();
-            this.SubmitStationBtn = new System.Windows.Forms.Button();
             this.StationsGrid = new System.Windows.Forms.DataGridView();
             this.LookForStationsBtn = new System.Windows.Forms.Button();
             this.SearchBtn = new System.Windows.Forms.Button();
@@ -179,7 +178,7 @@
             // StationLbl
             // 
             this.StationLbl.AutoSize = true;
-            this.StationLbl.Location = new System.Drawing.Point(216, 173);
+            this.StationLbl.Location = new System.Drawing.Point(124, 188);
             this.StationLbl.Name = "StationLbl";
             this.StationLbl.Size = new System.Drawing.Size(0, 32);
             this.StationLbl.TabIndex = 11;
@@ -226,7 +225,7 @@
             this.DepartureboardBtn.Name = "DepartureboardBtn";
             this.DepartureboardBtn.Size = new System.Drawing.Size(294, 46);
             this.DepartureboardBtn.TabIndex = 3;
-            this.DepartureboardBtn.Text = "Abfahrtstafel";
+            this.DepartureboardBtn.Text = "Abfahrtstafel \"Von\"";
             this.DepartureboardBtn.UseVisualStyleBackColor = true;
             this.DepartureboardBtn.Click += new System.EventHandler(this.DepartureboardBtn_Click);
             // 
@@ -252,7 +251,6 @@
             // SearchTab
             // 
             this.SearchTab.Controls.Add(this.MapBtn);
-            this.SearchTab.Controls.Add(this.SubmitStationBtn);
             this.SearchTab.Controls.Add(this.StationsGrid);
             this.SearchTab.Controls.Add(this.LookForStationsBtn);
             this.SearchTab.Controls.Add(this.SearchBtn);
@@ -268,22 +266,13 @@
             // 
             // MapBtn
             // 
-            this.MapBtn.Location = new System.Drawing.Point(1071, 992);
+            this.MapBtn.Location = new System.Drawing.Point(1428, 994);
             this.MapBtn.Name = "MapBtn";
             this.MapBtn.Size = new System.Drawing.Size(150, 46);
             this.MapBtn.TabIndex = 6;
             this.MapBtn.Text = "Karte";
             this.MapBtn.UseVisualStyleBackColor = true;
             this.MapBtn.Click += new System.EventHandler(this.MapBtn_Click);
-            // 
-            // SubmitStationBtn
-            // 
-            this.SubmitStationBtn.Location = new System.Drawing.Point(1293, 992);
-            this.SubmitStationBtn.Name = "SubmitStationBtn";
-            this.SubmitStationBtn.Size = new System.Drawing.Size(285, 46);
-            this.SubmitStationBtn.TabIndex = 5;
-            this.SubmitStationBtn.Text = "Station übernehmen";
-            this.SubmitStationBtn.UseVisualStyleBackColor = true;
             // 
             // StationsGrid
             // 

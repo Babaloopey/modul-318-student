@@ -76,37 +76,43 @@
         public List<Station> GetNearestStations(double? xCoordinate, double? yCoordinate)
         {
             var uri = new Uri($"https://fahrplan.search.ch/api/completion.json?latlon={xCoordinate},{yCoordinate}&accuracy=10&show_coordinates=1");
-
-            HttpResponseMessage response = this.httpClient
+            try
+            {
+                HttpResponseMessage response = this.httpClient
                 .GetAsync(uri)
                 .GetAwaiter()
                 .GetResult();
-            string content = response.Content
-                .ReadAsStringAsync()
-                .GetAwaiter()
-                .GetResult();
+                string content = response.Content
+                    .ReadAsStringAsync()
+                    .GetAwaiter()
+                    .GetResult();
 
-            List<NearStation> nearStations = JsonConvert.DeserializeObject<List<NearStation>>(content);
-            List<Station> stations = new List<Station>();
+                List<NearStation> nearStations = JsonConvert.DeserializeObject<List<NearStation>>(content);
+                List<Station> stations = new List<Station>();
 
-            foreach (NearStation nearStation in nearStations)
-            {
-                Station station = new Station();
-                station.Name = nearStation.Label;
-                station.Coordinate = new Coordinate();
-                station.Coordinate.XCoordinate = nearStation.Lat;
-                station.Coordinate.YCoordinate = nearStation.Lon;
-                station.Distance = nearStation.Dist;
+                foreach (NearStation nearStation in nearStations)
+                {
+                    Station station = new Station();
+                    station.Name = nearStation.Label;
+                    station.Coordinate = new Coordinate();
+                    station.Coordinate.XCoordinate = nearStation.Lat;
+                    station.Coordinate.YCoordinate = nearStation.Lon;
+                    station.Distance = nearStation.Dist;
 
-                Console.WriteLine(station.Name);
-                Console.WriteLine(station.Coordinate.XCoordinate);
-                Console.WriteLine(station.Coordinate.YCoordinate);
-                Console.WriteLine(station.Distance);
+                    Console.WriteLine(station.Name);
+                    Console.WriteLine(station.Coordinate.XCoordinate);
+                    Console.WriteLine(station.Coordinate.YCoordinate);
+                    Console.WriteLine(station.Distance);
 
-                stations.Add(station);
+                    stations.Add(station);
+                }
+
+                return stations;
             }
-
-            return stations;
+            catch
+            {
+            }
+            return null;
         }
 
         // http://transport.opendata.ch/v1/connections?from=bern&to=luzern&date=2022-07-02&time=06:50
@@ -117,14 +123,21 @@
 
         private T GetObject<T>(Uri uri)
         {
-            HttpResponseMessage response = this.httpClient
-                .GetAsync(uri)
-                .GetAwaiter()
-                .GetResult();
-            string content = response.Content
-                .ReadAsStringAsync()
-                .GetAwaiter()
-                .GetResult();
+            string content = string.Empty;
+            try
+            {
+                HttpResponseMessage response = this.httpClient
+                    .GetAsync(uri)
+                    .GetAwaiter()
+                    .GetResult();
+                content = response.Content
+                    .ReadAsStringAsync()
+                    .GetAwaiter()
+                    .GetResult();
+            }
+            catch
+            {
+            }
 
             return JsonConvert.DeserializeObject<T>(content);
         }

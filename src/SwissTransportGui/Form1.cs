@@ -32,6 +32,7 @@ namespace SwissTransportGui
 
             MailBtn.Enabled = false;
             MapBtn.Enabled = false;
+            LookForStationsBtn.Enabled = false;
         }
 
 
@@ -230,6 +231,7 @@ namespace SwissTransportGui
         {
             SelectedStation = (Station)StationsGrid.CurrentRow.DataBoundItem;
             MapBtn.Enabled = true;
+            LookForStationsBtn.Enabled = true;
         }
 
         private void MapBtn_Click(object sender, EventArgs e)
@@ -250,17 +252,20 @@ namespace SwissTransportGui
 
         private void DataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (DataGrid.CurrentRow.DataBoundItem is ConnectionForDisplay)
+            if (DataGrid.CurrentRow != null)
             {
-                SelectedConnection = (ConnectionForDisplay)DataGrid.CurrentRow.DataBoundItem;
-                SelectedStationboardentry = null;
+                if (DataGrid.CurrentRow.DataBoundItem is ConnectionForDisplay)
+                {
+                    SelectedConnection = (ConnectionForDisplay)DataGrid.CurrentRow.DataBoundItem;
+                    SelectedStationboardentry = null;
+                }
+                else if (DataGrid.CurrentRow.DataBoundItem is StationboardForDisplay)
+                {
+                    SelectedStationboardentry = (StationboardForDisplay)DataGrid.CurrentRow.DataBoundItem;
+                    SelectedConnection = null;
+                }
+                MailBtn.Enabled = true;
             }
-            else if (DataGrid.CurrentRow.DataBoundItem is StationboardForDisplay)
-            {
-                SelectedStationboardentry = (StationboardForDisplay)DataGrid.CurrentRow.DataBoundItem;
-                SelectedConnection = null;
-            }
-            MailBtn.Enabled = true;
 
         }
 
@@ -271,7 +276,7 @@ namespace SwissTransportGui
                 var Body = StationLbl.Text +
                     "%0A" + "Ankunftsort: " + SelectedStationboardentry.Nach +
                     "%0A" + "Bezeichnung: " + SelectedStationboardentry.Bezeichnung +
-                    "%0A" + "Abfahrt: " + SelectedStationboardentry.Abfahrt;
+                    "%0A" + "Abfahrt: " + SelectedStationboardentry.Abfahrt + "%0A %0A";
 
                 Mail mail = new Mail(Body);
 
@@ -280,9 +285,9 @@ namespace SwissTransportGui
             else if (SelectedConnection != null)
             {
 
-                var Body = "Abfahrtsort: " + SelectedConnection.Abfahrtsort + "Zeit: " + SelectedConnection.Abfahrt +
-                "%0A" + "Ankunftsort: " + SelectedConnection.Ankunftsort + "Zeit: " + SelectedConnection.Ankunft +
-                "%0A" + "Dauer: " + SelectedConnection.Dauer + "%0A" + "Kante/Gleis: " + SelectedConnection.Kante;
+                var Body = "Abfahrtsort: " + SelectedConnection.Abfahrtsort + "  Zeit: " + SelectedConnection.Abfahrt +
+                "%0A" + "Ankunftsort: " + SelectedConnection.Ankunftsort + "  Zeit: " + SelectedConnection.Ankunft +
+                "%0A" + "Dauer: " + SelectedConnection.Dauer + "%0A" + "Kante/Gleis: " + SelectedConnection.Kante + "%0A %0A";
 
                 Mail mail = new Mail(Body);
 
@@ -299,7 +304,7 @@ namespace SwissTransportGui
 
         private void LookForStationsBtn_Click(object sender, EventArgs e)
         {
-            if (SelectedStation.Coordinate.XCoordinate != null) {
+            if (SelectedStation != null && SelectedStation.Coordinate != null && SelectedStation.Coordinate.XCoordinate != null) {
                 List<Station>? stations = helper.GetNearestStations(SelectedStation.Coordinate);
 
                 if (stations != null)
