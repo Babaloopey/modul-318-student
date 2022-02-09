@@ -18,7 +18,7 @@ namespace SwissTransportGui
         {
             
 
-            if (!String.IsNullOrEmpty(destination) && !String.IsNullOrEmpty(departure)){
+            if (!String.IsNullOrEmpty(departure) && !String.IsNullOrEmpty(destination)){
                 if (Date == null)
                 {
                     Date = DateTime.Now.ToString("yy-MM-dd");
@@ -66,7 +66,7 @@ namespace SwissTransportGui
             return null;
         }
 
-        public List<StationboardForDisplay> getStationBoard(string location, Control StationLbl)
+        public List<StationboardForDisplay> getStationBoard(string location, Control StationLbl = null)
         {
             if (!String.IsNullOrEmpty(location))
             {
@@ -83,7 +83,8 @@ namespace SwissTransportGui
                     stationboardsForDisplay.Add(stationboardForDisplay);
                 }
 
-                StationLbl.Text = "Abfahrtsstation: "+stationboard.Station.Name;
+                if(StationLbl != null) StationLbl.Text = "Abfahrtsstation: "+stationboard.Station.Name;
+                   
                 return stationboardsForDisplay;
             }
 

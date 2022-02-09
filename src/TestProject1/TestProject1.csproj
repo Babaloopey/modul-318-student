@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SwissTransportGui\SwissTransportGui.csproj" />
+    <ProjectReference Include="..\SwissTransport\SwissTransport.csproj" />
   </ItemGroup>
 
 </Project>
