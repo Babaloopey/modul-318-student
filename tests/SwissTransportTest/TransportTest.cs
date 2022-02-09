@@ -5,6 +5,7 @@
     using SwissTransport.Models;
     using Xunit;
     using System;
+    using System.Collections.Generic;
 
     public class TransportTest
     {
@@ -18,7 +19,7 @@
         [Fact]
         public void Locations()
         {
-            Stations stations = this.testee.GetStations("Sursee,");
+            Stations stations = this.testee.GetStations("Sursee");
 
             stations.StationList.Should().HaveCount(10);
         }
@@ -47,12 +48,28 @@
             Connections connections = this.testee.GetConnectionsWithDateTime("Sursee", "Luzern", "2022-02-07", "08:00");
             connections.Should().NotBeNull();
 
-            foreach (Connection connection in connections.ConnectionList) {
+            foreach (Connection connection in connections.ConnectionList)
+            {
                 connection.To.Station.Name.Should().Be("Luzern");
                 connection.From.Station.Name.Should().Be("Sursee");
 
                 connection.From.Departure.Should().BeAfter(comparison);
 
+
+            }
+        }
+
+        [Fact]
+        public void GetNearestStations()
+        {
+            //Koordinaten von Luzern
+            List<Station> stations = this.testee.GetNearestStations(47.050174, 8.310185);
+
+            stations.Should().NotBeNull();
+
+            foreach (Station station in stations)
+            {
+                station.Distance.Should().NotBeNull();
             }
         }
     }

@@ -287,34 +287,28 @@ namespace SwissTransportGui
 
         private void LookForStationsBtn_Click(object sender, EventArgs e)
         {
-
-
-
-
             string searchTerm = SearchBox.Text;
-            List<Station> stations = helper.GetNearestStations(SelectedStation.Coordinate);
 
-            if (stations != null)
-            {
-                StationsGrid.DataSource = stations;
-                StationsGrid.Columns[0].Visible = false;
-                StationsGrid.Columns[2].Visible = false;
-                StationsGrid.Columns[3].Visible = false;
-                StationsGrid.Columns[4].Visible = false;
-                StationsGrid.Columns["Name"].Visible = true;
-                StationsGrid.Columns["Distance"].Visible = true;
-                StationsGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            if (SelectedStation.Coordinate.XCoordinate != null) {
+                List<Station> stations = helper.GetNearestStations(SelectedStation.Coordinate);
+
+                if (stations != null)
+                {
+                    StationsGrid.DataSource = stations;
+                    StationsGrid.Columns[0].Visible = false;
+                    StationsGrid.Columns[2].Visible = false;
+                    StationsGrid.Columns[3].Visible = false;
+                    StationsGrid.Columns[4].Visible = false;
+                    StationsGrid.Columns["Name"].Visible = true;
+                    StationsGrid.Columns["Distance"].Visible = true;
+                    StationsGrid.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
             }
-            if (SelectedStation.Coordinate.XCoordinate == null)
+            else
             {
                 MessageBox.Show("Keine Koordinaten vorhanden");
             }
-            else if (stations == null || stations.Count() == 0)
-            {
-                MessageBox.Show("Keine Stationen gefunden");
-            }
-
-
+           
         }
     }
 }

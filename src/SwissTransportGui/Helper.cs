@@ -102,8 +102,9 @@ namespace SwissTransportGui
         {
             if (coordinate != null)
             {
-                if (coordinate.XCoordinate != null && coordinate.YCoordinate != null)
+                if (coordinate.XCoordinate > 0 && coordinate.YCoordinate > 0)
                 {
+                    Console.WriteLine(coordinate.XCoordinate.ToString());
                     List<Station> list = new List<Station>();
                     return list = transport.GetNearestStations(coordinate.XCoordinate, coordinate.YCoordinate);
                     

@@ -55,9 +55,9 @@ namespace TestProject1
                         if (date != "")
                         {
                             StringAssert.Contains("12.02.2022", result.Abfahrt);
-                            return true;
+                            
                         }
-
+                    return true;
                     }
                 }
             }
@@ -67,10 +67,8 @@ namespace TestProject1
 
 
         [TestCase("", ExpectedResult = false)]
-
         [TestCase("*&/()", ExpectedResult = false)]
-        [TestCase(" ", ExpectedResult = true)]
-        [TestCase("Lu", ExpectedResult = true)]
+        [TestCase("Luz", ExpectedResult = true)]
         [TestCase("Luzern", ExpectedResult = true)]
         public bool TestGetStations(string searchTerm)
         {
@@ -82,8 +80,9 @@ namespace TestProject1
                 foreach (Station station in results.StationList)
                 {
                     StringAssert.Contains(searchTerm, station.Name);
-                    return true;
+                    
                 }
+                return true;
             }
 
             return false;
@@ -109,6 +108,31 @@ namespace TestProject1
 
         }
 
+        [TestCase(null, null, ExpectedResult = false)]
+        [TestCase(47.050174, 8.310185, ExpectedResult = true)]
+        [TestCase(null, 8.310185, ExpectedResult = false)]
+        [TestCase(47.050174, null, ExpectedResult = false)]
+        public bool TestGetNearestStations(double x, double y)
+        {
+            Coordinate coordinate = new Coordinate();
+            coordinate.XCoordinate = x;
+            coordinate.YCoordinate = y;
+
+            List<Station> results = helper.GetNearestStations(coordinate);
+
+            if (results != null)
+            {
+                foreach(Station result in results)
+                {
+                    Assert.IsNotEmpty(result.Name);
+                    Assert.IsNotNull(result.Distance);     
+                }
+                return true;
+            }
+            return false;
+
+        }
+
         [TestCase("01.02.2022 09:43:23")]
         public void TestSeparateDateTime(string input)
         {
@@ -117,5 +141,7 @@ namespace TestProject1
             StringAssert.Contains(results[1], input);
             
         }
+
+
     }  
 }
