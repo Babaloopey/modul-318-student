@@ -57,7 +57,7 @@ namespace SwissTransportGui
                 {
                     if (stations.StationList.Count == 0)
                     {
-                        MessageBox.Show("keine stationen mit diesem namen gefunden");
+                        
                         return null;
                     }
 
